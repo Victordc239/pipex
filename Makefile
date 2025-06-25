@@ -6,14 +6,16 @@
 #    By: victor <victor@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/07 12:03:22 by vdiez-cu          #+#    #+#              #
-#    Updated: 2025/06/08 20:02:50 by victor           ###   ########.fr        #
+#    Updated: 2025/06/25 14:13:26 by victor           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= pipex
 
 SRCS		= 	main.c \
-			ft_split.c
+			ft_split.c \
+			path.c \
+			pipex_utils.c
 
 INCLUDE = ./pipex.h
 
