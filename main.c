@@ -6,7 +6,7 @@
 /*   By: vdiez-cu <vdiez-cu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 12:54:15 by victor            #+#    #+#             */
-/*   Updated: 2025/06/26 13:47:02 by vdiez-cu         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:35:12 by vdiez-cu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	arguments(int argc, char **argv, t_pipex *p)
 	if (argc == 2)
 	{
 		p->argv_split = ft_split(argv[1], ' ');
-		if (!p->argv_split)
+		if (p->argv_split == NULL)
 			exit(EXIT_FAILURE);
 		p->count = 0;
-		while (p->argv_split[p->count])
+		while (p->argv_split[p->count] != NULL)
 			p->count++;
 		if (p->count != 4)
 		{
@@ -57,7 +57,7 @@ void	first_child(t_pipex *p, char **envp)
 		if (p->cmd1_split[0] == NULL)
 			(ft_free_split(p->cmd1_split), exit(EXIT_FAILURE));
 		p->path_cmd1 = find_executable(p->cmd1_split[0], envp);
-		if (!p->path_cmd1)
+		if (p->path_cmd1 == NULL)
 		{
 			write(2, "command not found: ", 19);
 			write(2, p->cmd1_split[0], ft_strlen(p->cmd1_split[0]));
@@ -86,7 +86,7 @@ void	second_child(t_pipex *p, char **envp)
 		if (p->cmd2_split[0] == NULL)
 			(ft_free_split(p->cmd2_split), exit(EXIT_FAILURE));
 		p->path_cmd2 = find_executable(p->cmd2_split[0], envp);
-		if (!p->path_cmd2)
+		if (p->path_cmd2 == NULL)
 		{
 			write(2, "command not found: ", 19);
 			write(2, p->cmd2_split[0], ft_strlen(p->cmd2_split[0]));

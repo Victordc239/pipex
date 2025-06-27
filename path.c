@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vdiez-cu <vdiez-cu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:59:09 by victor            #+#    #+#             */
-/*   Updated: 2025/06/25 15:42:10 by victor           ###   ########.fr       */
+/*   Updated: 2025/06/27 12:33:09 by vdiez-cu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_split(char **split)
 	int	i;
 
 	i = 0;
-	while (split[i])
+	while (split[i] != NULL)
 	{
 		free(split[i]);
 		i++;
@@ -41,7 +41,7 @@ char	*get_path_env(char **envp)
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 			return (envp[i] + 5);
@@ -59,12 +59,12 @@ char	*find_executable(char *cmd, char **envp)
 
 	i = 0;
 	path_env = get_path_env(envp);
-	if (!path_env)
+	if (path_env == NULL)
 		return (NULL);
 	paths = ft_split(path_env, ':');
-	if (!paths)
+	if (paths == NULL)
 		return (NULL);
-	while (paths[i])
+	while (paths[i] != NULL)
 	{
 		full_path = join_path(paths[i], cmd);
 		if (access(full_path, X_OK) == 0)
