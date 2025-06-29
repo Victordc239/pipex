@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdiez-cu <vdiez-cu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 13:22:12 by victor            #+#    #+#             */
-/*   Updated: 2025/06/26 13:47:11 by vdiez-cu         ###   ########.fr       */
+/*   Updated: 2025/06/29 11:35:17 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,31 +73,45 @@ int	ft_strncmp(const char *s1, const char *s2, int n)
 	}
 }
 
-void	ft_perror_exit(char *str, int num_close, t_pipex *p)
+char	*ft_strchr(const char *str, int c)
 {
-	if (num_close == 1)
-		close(p->infile_fd);
-	if (num_close == 2)
+	size_t			i;
+	unsigned char	new_c;
+
+	if (c < 0 || c > 255)
+		new_c = (unsigned char)(c % 256);
+	else
+		new_c = (unsigned char)c;
+	i = 0;
+	while ((unsigned char)str[i] != '\0')
 	{
-		close(p->infile_fd);
-		close(p->outfile_fd);
+		if ((unsigned char)str[i] == new_c)
+			return ((char *)&str[i]);
+		i++;
 	}
-	perror(str);
-	exit(EXIT_FAILURE);
+	if (c == '\0' || new_c == '\0')
+		return ((char *)&str[i]);
+	return (NULL);
 }
 
-void	ft_close(t_pipex *p, int num_close)
+char	*ft_strdup(const char *s)
 {
-	if (num_close == 4)
+	char	*result;
+	size_t	i;
+	size_t	size_s;
+	char	*aux;
+
+	aux = (char *)s;
+	i = 0;
+	size_s = ft_strlen(aux);
+	result = (char *)malloc(sizeof(char) * size_s + 1);
+	if (!result)
+		return (NULL);
+	while (aux[i] != '\0')
 	{
-		close(p->out_in_cmd_pipe[0]);
-		close(p->out_in_cmd_pipe[1]);
-		close(p->infile_fd);
-		close(p->outfile_fd);
+		result[i] = aux[i];
+		i++;
 	}
-	else if (num_close == 2)
-	{
-		close(p->infile_fd);
-		close(p->outfile_fd);
-	}
+	result[i] = '\0';
+	return (result);
 }

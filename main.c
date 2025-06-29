@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdiez-cu <vdiez-cu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 12:54:15 by victor            #+#    #+#             */
-/*   Updated: 2025/06/27 12:35:12 by vdiez-cu         ###   ########.fr       */
+/*   Updated: 2025/06/28 16:29:47 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,15 @@ void	second_child(t_pipex *p, char **envp)
 		ft_close(p, 4);
 		p->cmd2_split = ft_split(p->cmd2_str, ' ');
 		if (p->cmd2_split[0] == NULL)
-			(ft_free_split(p->cmd2_split), exit(EXIT_FAILURE));
+			(write(2, "command not found: \n", 20),
+				ft_free_split(p->cmd2_split), exit(127));
 		p->path_cmd2 = find_executable(p->cmd2_split[0], envp);
 		if (p->path_cmd2 == NULL)
 		{
 			write(2, "command not found: ", 19);
 			write(2, p->cmd2_split[0], ft_strlen(p->cmd2_split[0]));
 			write(2, "\n", 1);
-			ft_free_split(p->cmd2_split);
-			exit(127);
+			(ft_free_split(p->cmd2_split), exit(127));
 		}
 		execve(p->path_cmd2, p->cmd2_split, envp);
 		ft_perror_exit("execve cmd2", 0, p);

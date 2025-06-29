@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdiez-cu <vdiez-cu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 12:54:07 by victor            #+#    #+#             */
-/*   Updated: 2025/06/26 13:14:59 by vdiez-cu         ###   ########.fr       */
+/*   Updated: 2025/06/29 11:38:15 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	*find_executable(char *cmd, char **envp);
 char	*ft_word(char const *s, char c, size_t *k);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*get_path_env(char **envp);
+char	*ft_strdup(const char *s);
+char	*ft_strchr(const char *str, int c);
 void	ft_free_split(char **split);
 void	arguments(int argc, char **argv, t_pipex *p);
 void	ft_close(t_pipex *p, int num_close);

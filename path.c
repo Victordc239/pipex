@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdiez-cu <vdiez-cu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:59:09 by victor            #+#    #+#             */
-/*   Updated: 2025/06/27 12:33:09 by vdiez-cu         ###   ########.fr       */
+/*   Updated: 2025/06/29 11:37:30 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ char	*find_executable(char *cmd, char **envp)
 	char	*full_path;
 	char	*path_env;
 
+	if (ft_strchr(cmd, '/') != NULL && (access(cmd, X_OK) == 0))
+		return (ft_strdup(cmd));
+	else if (ft_strchr(cmd, '/') != NULL && (access(cmd, X_OK) != 0))
+		return (NULL);
 	i = 0;
 	path_env = get_path_env(envp);
 	if (path_env == NULL)
@@ -69,8 +73,7 @@ char	*find_executable(char *cmd, char **envp)
 		full_path = join_path(paths[i], cmd);
 		if (access(full_path, X_OK) == 0)
 			return (ft_free_split(paths), full_path);
-		free(full_path);
-		i++;
+		(free(full_path), i++);
 	}
 	return (ft_free_split(paths), NULL);
 }
